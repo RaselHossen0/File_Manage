@@ -1,7 +1,10 @@
+import 'dart:io';
+
+import 'package:file_management/changePassword.dart';
 import 'package:file_management/main.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:file_management/user.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -33,22 +36,21 @@ class _LoginPageState extends State<LoginPage> {
                 children: [
                   SizedBox(height: 40,),
                   Center(
-                    child: Text(
+                    child: Apptext(
                       "Are you User?",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 30,
-                          color: Colors.purple
-                      ),
+
                     ),
                   ),
-                  TextButton(onPressed: (){}, child: Text(
+                  TextButton(onPressed: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>UserPage()));
+                  }, child: Text(
                     "Enter",
                     style:
                     TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
-                        color: Colors.orangeAccent
+                        color: Colors.orangeAccent,
+                      fontFamily: "Satoshi"
                     ),
                   )
                   ),
@@ -58,7 +60,8 @@ class _LoginPageState extends State<LoginPage> {
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 30,
-                          color: Colors.black
+                          color: Colors.black,
+                        fontFamily: 'Lexend'
                       ),
                     ),
                   ),
@@ -109,13 +112,6 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                       ),
-                      // Container(
-                      //
-                      //   child: TextButton(
-                      //     onPressed: (){},
-                      //     child: Text("Change"),
-                      //   ),
-                      // )
                     ],
                   ),
                   SizedBox(height: 20,),
@@ -144,7 +140,11 @@ class _LoginPageState extends State<LoginPage> {
                     color: Colors.red
                   ) ,
                   ),
-                  TextButton(onPressed: (){}, child: Text(
+                  TextButton(onPressed: (){
+                    Navigator.push(context,
+                    MaterialPageRoute(builder:(context)=> ChangePass()
+                    ));
+                  }, child: Text(
                     "Change password",
                     style: TextStyle(
                       color: Colors.black,
@@ -164,19 +164,36 @@ class _LoginPageState extends State<LoginPage> {
   }
   TextEditingController username=TextEditingController();
   TextEditingController password=TextEditingController();
-  List<User> users=[User()];
+  int p=0;
+  int u=0;
   Future<void> login() async {
     String nam=username.text;
     String pass=password.text;
-    for(User user in users){
-      if(user.pass==pass && user.name==nam){
-        Navigator.push(context, MaterialPageRoute(
-            builder:(context)=>
-              MyHomePage(title: 'My',)
 
-        )
-        );
+    await File('pass.text').readAsString().then((String Pass) {
+
+      if(Pass==pass) {
+        setState(() {
+          p=1;
+        });
       }
+    });
+    await File('userName.text').readAsString().then((String uNam) {
+
+      if(uNam==nam) {
+        setState(() {
+          u=1;
+        });
+
+      }
+    });
+
+
+    if(u==1 && p==1) {
+      Navigator.push(context, MaterialPageRoute(builder: (context)=>MyHomePage(title: "Home")
+      ));
+    }
+
       else{
         setState(() {
            error="Please provide correct credentials!";
@@ -184,39 +201,9 @@ class _LoginPageState extends State<LoginPage> {
       }
     }
 
-  }
-  Future<void> _changePass() async {
 
-  }
-}
+
+
 String error="";
-  class User {
-  static const _kNameKey = 'name';
-  static const _kPassKey = 'pass';
-
-  String name = "admin";
-  String pass = "12345678";
-
-  Future<void> loadUser() async {
-    final prefs = await SharedPreferences.getInstance();
-    name = prefs.getString(_kNameKey) ?? name;
-    pass = prefs.getString(_kPassKey) ?? pass;
-  }
-
-  Future<void> saveUser() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString(_kNameKey, name);
-    await prefs.setString(_kPassKey, pass);
-  }
-
-  void setPass(String pass) {
-    this.pass = pass;
-    saveUser();
-  }
-
-  void setUser(String name) {
-    this.name = name;
-    saveUser();
-  }
 }
 
