@@ -1,9 +1,11 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:file_management/changePassword.dart';
 import 'package:file_management/main.dart';
 import 'package:file_management/user.dart';
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
 
 
 class LoginPage extends StatefulWidget {
@@ -169,28 +171,55 @@ class _LoginPageState extends State<LoginPage> {
   Future<void> login() async {
     String nam=username.text;
     String pass=password.text;
-    String f2=getAbsoluteFilePath('pass.txt');
-    File file1 = File(f2);
-    await file1.readAsString().then((String Pass) {
+    Directory directory=await getApplicationDocumentsDirectory();
+   // print(directory.path);
+    String pp="${directory.path}/pass.txt";
+    File Fi=File(pp);
+    if(await Fi.exists()==false){
+      setState(() {
+        Fi.create();
+      });
 
-      if(Pass==pass) {
-        setState(() {
-          p=1;
-        });
-      }
+    }
+    File re=File("${directory.path}/userName.text");
+    //Fi.writeAsString("1234");
+   await Fi.readAsString(encoding: utf8).then((value){
+     if(value==pass) {
+       setState(() {
+         p=1;
+       });
+     }
     });
-    String f22=getAbsoluteFilePath('userName.txt');
-    File file11 = File(f22);
-    await file11.readAsString().then((String uNam) {
-
-      if(uNam==nam) {
+    await re.readAsString(encoding: utf8).then((value){
+      if(value==nam) {
         setState(() {
           u=1;
         });
-
       }
     });
 
+    // String f2=getAbsoluteFilePath('pass.txt');
+    // File file1 = File(f2);
+    // await file1.readAsString().then((String Pass) {
+    //
+    //   if(Pass==pass) {
+    //     setState(() {
+    //       p=1;
+    //     });
+    //   }
+    // });
+    // String f22=getAbsoluteFilePath('userName.txt');
+    // File file11 = File(f22);
+    // await file11.readAsString().then((String uNam) {
+    //
+    //   if(uNam==nam) {
+    //     setState(() {
+    //       u=1;
+    //     });
+    //
+    //   }
+    // });
+    //
 
     if(u==1 && p==1) {
       Navigator.push(context, MaterialPageRoute(builder: (context)=>MyHomePage(title: "Home")

@@ -9,6 +9,7 @@ import 'package:file_management/video.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info/package_info.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'audio.dart';
@@ -39,6 +40,7 @@ List<String> textPaths=[];
 List<Container> PrintContainers=[];
 List<String> printNames=[];
 List<String> printPaths=[];
+
 String getProjectRootFolder() {
   final scriptPath = Platform.script.toFilePath();
   final scriptDirectory = PATH.dirname(scriptPath);
