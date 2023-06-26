@@ -94,11 +94,14 @@ class _PrintsState extends State<Prints> {
                 SizedBox(width: wid*0.1,),
                 ElevatedButton.icon(
                     onPressed: () async {
-                      File photoFile=File("files/print.txt");
-                      File photoName=File("files/printName.txt");
+                      String f9=getAbsoluteFilePath('print.txt');
+                      File print = File(f9);
+                      String f10=getAbsoluteFilePath('printName.txt');
+                      File printfile4 = File(f10);
+
                       setState(() {
-                        photoFile.writeAsString(absPath+'\n',mode: FileMode.append);
-                        photoName.writeAsString(path+'\n',mode: FileMode.append);
+                        print.writeAsString(absPath+'\n',mode: FileMode.append);
+                        printfile4.writeAsString(path+'\n',mode: FileMode.append);
                       });
 
                       setState(() {

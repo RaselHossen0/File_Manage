@@ -94,16 +94,20 @@ class _PhotosState extends State<Photos> {
                 SizedBox(width: wid*0.1,),
                 ElevatedButton.icon(
                     onPressed: () async {
-                      File photoFile=File("files/photo.txt");
-                      File photoName=File("files/photoName.txt");
+                      String f1=getAbsoluteFilePath('photo.txt');
+                      File file = File(f1);
+                      String f2=getAbsoluteFilePath('photoName.txt');
+                      File file1 = File(f2);
+
                       setState(() {
-                        photoFile.writeAsString(absPath+'\n',mode: FileMode.append);
-                        photoName.writeAsString(path+'\n',mode: FileMode.append);
+                        file.writeAsString(absPath+'\n',mode: FileMode.append);
+                        file1.writeAsString(path+'\n',mode: FileMode.append);
                       });
 
                   setState(() {
                     photoPaths.add(absPath);
                     photoNames.add(path);
+                    PhotoContainers.add(Divs(path, absPath));
                     containers.add(Divs(path, absPath));
                   }
                   );
@@ -132,9 +136,9 @@ class _PhotosState extends State<Photos> {
             height: hi*0.8,
             child: GridView.builder(
               scrollDirection: Axis.vertical,
-              itemCount: containers.length,
+              itemCount: PhotoContainers.length,
               itemBuilder: (BuildContext context, int index) {
-                return containers[index];
+                return PhotoContainers[index];
               },
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 5,

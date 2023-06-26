@@ -94,11 +94,14 @@ class _VideosState extends State<Videos> {
                 SizedBox(width: wid*0.1,),
                 ElevatedButton.icon(
                     onPressed: () async {
-                      File photoFile=File("files/video.txt");
-                      File photoName=File("files/videoName.txt");
+                      String f5=getAbsoluteFilePath('video.txt');
+                      File vid = File(f5);
+                      String f6=getAbsoluteFilePath('videoName.txt');
+                      File file4 = File(f6);
+
                       setState(() {
-                        photoFile.writeAsString(absPath+'\n',mode: FileMode.append);
-                        photoName.writeAsString(path+'\n',mode: FileMode.append);
+                        vid.writeAsString(absPath+'\n',mode: FileMode.append);
+                        file4.writeAsString(path+'\n',mode: FileMode.append);
                       });
 
                       setState(() {

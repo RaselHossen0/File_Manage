@@ -169,8 +169,9 @@ class _LoginPageState extends State<LoginPage> {
   Future<void> login() async {
     String nam=username.text;
     String pass=password.text;
-
-    await File('pass.text').readAsString().then((String Pass) {
+    String f2=getAbsoluteFilePath('pass.txt');
+    File file1 = File(f2);
+    await file1.readAsString().then((String Pass) {
 
       if(Pass==pass) {
         setState(() {
@@ -178,7 +179,9 @@ class _LoginPageState extends State<LoginPage> {
         });
       }
     });
-    await File('userName.text').readAsString().then((String uNam) {
+    String f22=getAbsoluteFilePath('userName.txt');
+    File file11 = File(f22);
+    await file11.readAsString().then((String uNam) {
 
       if(uNam==nam) {
         setState(() {

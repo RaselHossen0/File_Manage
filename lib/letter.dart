@@ -94,11 +94,14 @@ class _LettersState extends State<Letters> {
                 SizedBox(width: wid*0.1,),
                 ElevatedButton.icon(
                     onPressed: () async {
-                      File photoFile=File("files/letter.txt");
-                      File photoName=File("files/letterName.txt");
+                      String f7=getAbsoluteFilePath('letter.txt');
+                      File let = File(f7);
+                      String f8=getAbsoluteFilePath('letterName.txt');
+                      File letfile = File(f8);
+
                       setState(() {
-                        photoFile.writeAsString(absPath+'\n',mode: FileMode.append);
-                        photoName.writeAsString(path+'\n',mode: FileMode.append);
+                        let.writeAsString(absPath+'\n',mode: FileMode.append);
+                        letfile.writeAsString(path+'\n',mode: FileMode.append);
                       });
 
                       setState(() {

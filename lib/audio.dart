@@ -94,11 +94,15 @@ class _AudiosState extends State<Audios> {
                 SizedBox(width: wid*0.1,),
                 ElevatedButton.icon(
                     onPressed: () async {
-                      File photoFile=File("files/audio.txt");
-                      File photoName=File("files/audioName.txt");
+
+                      String f3=getAbsoluteFilePath('audio.txt');
+                      File file2 = File(f3);
+                      String f4=getAbsoluteFilePath('audioName.txt');
+                      File file3 = File(f4);
+
                       setState(() {
-                        photoFile.writeAsString(absPath+'\n',mode: FileMode.append);
-                        photoName.writeAsString(path+'\n',mode: FileMode.append);
+                        file2.writeAsString(absPath+'\n',mode: FileMode.append);
+                        file3.writeAsString(path+'\n',mode: FileMode.append);
                       });
 
                       setState(() {

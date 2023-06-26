@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'package:path/path.dart' as PATH;
 import 'package:file_management/letter.dart';
 import 'package:file_management/photo.dart';
 import 'package:file_management/login.dart';
@@ -8,6 +8,7 @@ import 'package:file_management/text.dart';
 import 'package:file_management/video.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:package_info/package_info.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'audio.dart';
@@ -38,27 +39,45 @@ List<String> textPaths=[];
 List<Container> PrintContainers=[];
 List<String> printNames=[];
 List<String> printPaths=[];
+String getProjectRootFolder() {
+  final scriptPath = Platform.script.toFilePath();
+  final scriptDirectory = PATH.dirname(scriptPath);
+  final projectRootFolder = PATH.dirname(scriptDirectory);
+  return projectRootFolder;
+}
 
+String getAbsoluteFilePath(String filename) {
+  final rootFolder = getProjectRootFolder();
+  final filesDirectory = PATH.join(rootFolder, 'file_management/files');
+  final absoluteFilePath = PATH.join(filesDirectory, filename);
+  return absoluteFilePath;
+}
  main() async {
   runApp(const MyApp());
   //photo read
-  File file = File('files/photo.txt');
-  String fileContent = await file.readAsString() as String;
+  String f1=getAbsoluteFilePath('photo.txt');
+  File file = File(f1);
+  String fileContent = await file.readAsString();
   photoPaths = fileContent.split('\n');
-  File file1 = File('files/photoName.txt');
-  String fileContent1 = await file1.readAsString() as String;
+  String f2=getAbsoluteFilePath('photoName.txt');
+  File file1 = File(f2);
+  String fileContent1 = await file1.readAsString();
    photoNames = fileContent1.split('\n');
    for(int i=0;i<photoNames.length;i++){
+
      String name=photoNames[i];
      String path=photoPaths[i];
      containers.add(Divs(name, path));
      PhotoContainers.add(Divs(name, path));
    }
   //audio read
-  File file2 = File('files/audio.txt');
+
+  String f3=getAbsoluteFilePath('audio.txt');
+  File file2 = File(f3);
   String file2Content = await file2.readAsString();
   audioPaths = file2Content.split('\n');
-  File file3 = File('files/audioName.txt');
+  String f4=getAbsoluteFilePath('audioName.txt');
+  File file3 = File(f4);
   String file3Content1 = await file3.readAsString();
   audioNames = file3Content1.split('\n');
   for(int i=0;i<audioNames.length;i++){
@@ -69,11 +88,15 @@ List<String> printPaths=[];
   }
 
 
+
   //video read
-  File vid = File('files/video.txt');
+  String f5=getAbsoluteFilePath('video.txt');
+  File vid = File(f5);
+
   String vidS = await vid.readAsString();
   videoPaths = vidS.split('\n');
-  File file4 = File('files/videoName.txt');
+  String f6=getAbsoluteFilePath('videoName.txt');
+  File file4 = File(f6);
   String file2Content1 = await file4.readAsString();
   videoNames = file2Content1.split('\n');
   for(int i=0;i<videoNames.length;i++){
@@ -84,11 +107,13 @@ List<String> printPaths=[];
   }
 
   //letter read
-  File let = File('files/letter.txt');
+  String f7=getAbsoluteFilePath('letter.txt');
+  File let = File(f7);
   String letS = await vid.readAsString();
   letterPaths = vidS.split('\n');
-  File letfile4 = File('files/letterName.txt');
-  String letfile2Content1 = await letfile4.readAsString();
+  String f8=getAbsoluteFilePath('letterName.txt');
+  File letfile = File(f8);
+  String letfile2Content1 = await letfile.readAsString();
   letterNames = letfile2Content1.split('\n');
   for(int i=0;i<letterNames.length;i++){
     String name=letterNames[i];
@@ -98,10 +123,12 @@ List<String> printPaths=[];
   }
 
   //print read
-  File print = File('files/print.txt');
+  String f9=getAbsoluteFilePath('print.txt');
+  File print = File(f9);
   String printS = await print.readAsString();
   printPaths = printS.split('\n');
-  File printfile4 = File('files/printName.txt');
+  String f10=getAbsoluteFilePath('printName.txt');
+  File printfile4 = File(f10);
   String printfile2Content1 = await printfile4.readAsString();
   printNames = printfile2Content1.split('\n');
   for(int i=0;i<printNames.length;i++){
@@ -112,10 +139,12 @@ List<String> printPaths=[];
   }
 
   //text read
-  File text = File('files/text.txt');
+  String f11=getAbsoluteFilePath('text.txt');
+  File text = File(f11);
   String textS = await text.readAsString();
   textPaths = textS.split('\n');
-  File textfile4 = File('files/textName.txt');
+  String f12=getAbsoluteFilePath('textName.txt');
+  File textfile4 = File(f12);
   String textfile2Content1 = await textfile4.readAsString();
   textNames = textfile2Content1.split('\n');
   for(int i=0;i<textNames.length;i++){

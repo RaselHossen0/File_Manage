@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'login.dart';
+import 'main.dart';
 
 class ChangePass extends StatefulWidget {
   const ChangePass({super.key});
@@ -151,8 +152,12 @@ TextEditingController password=TextEditingController();
 
 
 Future<void> _changePass() async {
-      File fName=File("userName.text");
-      File fPass=File("pass.text");
+
+
+      String f2=getAbsoluteFilePath('userName.txt');
+      File fName = File(f2);
+      String f22=getAbsoluteFilePath('pass.txt');
+      File fPass = File(f22);
       setState(() {
         fName.writeAsString( username.text);
         fPass.writeAsString( password.text);

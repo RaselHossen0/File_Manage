@@ -94,11 +94,13 @@ class _TextsState extends State<Texts> {
                 SizedBox(width: wid*0.1,),
                 ElevatedButton.icon(
                     onPressed: () async {
-                      File photoFile=File("files/text.txt");
-                      File photoName=File("files/textName.txt");
+                      String f11=getAbsoluteFilePath('text.txt');
+                      File text = File(f11);
+                      String f12=getAbsoluteFilePath('textName.txt');
+                      File textfile4 = File(f12);
                       setState(() {
-                        photoFile.writeAsString(absPath+'\n',mode: FileMode.append);
-                        photoName.writeAsString(path+'\n',mode: FileMode.append);
+                        text.writeAsString(absPath+'\n',mode: FileMode.append);
+                        textfile4.writeAsString(path+'\n',mode: FileMode.append);
                       });
 
                       setState(() {

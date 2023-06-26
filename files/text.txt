@@ -1,1 +1,2 @@
 /home/student/AndroidStudioProjects/file_management/userName.text
+/home/student/Documents/pass.text
