@@ -94,9 +94,10 @@ class _VideosState extends State<Videos> {
                 SizedBox(width: wid*0.1,),
                 ElevatedButton.icon(
                     onPressed: () async {
-                      String f5=getAbsoluteFilePath('video.txt');
+                      Directory directory = await getApplicationDocumentsDirectory();
+                      String f5='${directory.path}/video.txt';
                       File vid = File(f5);
-                      String f6=getAbsoluteFilePath('videoName.txt');
+                      String f6='${directory.path}/videoName.txt';
                       File file4 = File(f6);
 
                       setState(() {

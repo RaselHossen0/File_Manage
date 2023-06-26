@@ -94,9 +94,10 @@ class _TextsState extends State<Texts> {
                 SizedBox(width: wid*0.1,),
                 ElevatedButton.icon(
                     onPressed: () async {
-                      String f11=getAbsoluteFilePath('text.txt');
+                      Directory directory = await getApplicationDocumentsDirectory();
+                      String f11='${directory.path}/text.txt';
                       File text = File(f11);
-                      String f12=getAbsoluteFilePath('textName.txt');
+                      String f12='${directory.path}/textName.txt';
                       File textfile4 = File(f12);
                       setState(() {
                         text.writeAsString(absPath+'\n',mode: FileMode.append);

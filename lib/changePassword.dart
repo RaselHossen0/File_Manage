@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
 
 import 'login.dart';
 import 'main.dart';
@@ -153,10 +154,10 @@ TextEditingController password=TextEditingController();
 
 Future<void> _changePass() async {
 
-
-      String f2=getAbsoluteFilePath('userName.txt');
+  Directory directory = await getApplicationDocumentsDirectory();
+      String f2='${directory.path}/userName.txt';
       File fName = File(f2);
-      String f22=getAbsoluteFilePath('pass.txt');
+      String f22='${directory.path}/pass.txt';
       File fPass = File(f22);
       setState(() {
         fName.writeAsString( username.text);

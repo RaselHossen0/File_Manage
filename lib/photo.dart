@@ -94,9 +94,10 @@ class _PhotosState extends State<Photos> {
                 SizedBox(width: wid*0.1,),
                 ElevatedButton.icon(
                     onPressed: () async {
-                      String f1=getAbsoluteFilePath('photo.txt');
+                      Directory directory = await getApplicationDocumentsDirectory();
+                      String f1='${directory.path}/photo.txt';
                       File file = File(f1);
-                      String f2=getAbsoluteFilePath('photoName.txt');
+                      String f2='${directory.path}/photoName.txt';
                       File file1 = File(f2);
 
                       setState(() {

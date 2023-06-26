@@ -94,9 +94,10 @@ class _PrintsState extends State<Prints> {
                 SizedBox(width: wid*0.1,),
                 ElevatedButton.icon(
                     onPressed: () async {
-                      String f9=getAbsoluteFilePath('print.txt');
+                      Directory directory = await getApplicationDocumentsDirectory();
+                      String f9='${directory.path}/print.txt';
                       File print = File(f9);
-                      String f10=getAbsoluteFilePath('printName.txt');
+                      String f10='${directory.path}/printName.txt';
                       File printfile4 = File(f10);
 
                       setState(() {

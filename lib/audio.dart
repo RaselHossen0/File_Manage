@@ -94,10 +94,10 @@ class _AudiosState extends State<Audios> {
                 SizedBox(width: wid*0.1,),
                 ElevatedButton.icon(
                     onPressed: () async {
-
-                      String f3=getAbsoluteFilePath('audio.txt');
+                      Directory directory = await getApplicationDocumentsDirectory();
+                      String f3='${directory.path}/audio.txt';
                       File file2 = File(f3);
-                      String f4=getAbsoluteFilePath('audioName.txt');
+                      String f4='${directory.path}/audioName.txt';
                       File file3 = File(f4);
 
                       setState(() {

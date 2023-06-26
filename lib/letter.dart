@@ -94,9 +94,10 @@ class _LettersState extends State<Letters> {
                 SizedBox(width: wid*0.1,),
                 ElevatedButton.icon(
                     onPressed: () async {
-                      String f7=getAbsoluteFilePath('letter.txt');
+                      Directory directory = await getApplicationDocumentsDirectory();
+                      String f7='${directory.path}/letter.txt';
                       File let = File(f7);
-                      String f8=getAbsoluteFilePath('letterName.txt');
+                      String f8='${directory.path}/letterName.txt';
                       File letfile = File(f8);
 
                       setState(() {

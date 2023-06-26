@@ -172,17 +172,23 @@ class _LoginPageState extends State<LoginPage> {
     String nam=username.text;
     String pass=password.text;
     Directory directory=await getApplicationDocumentsDirectory();
-   // print(directory.path);
     String pp="${directory.path}/pass.txt";
     File Fi=File(pp);
-    if(await Fi.exists()==false){
+    if(!(await Fi.exists())){
       setState(() {
         Fi.create();
+        Fi.writeAsString("1234");
       });
 
     }
-    File re=File("${directory.path}/userName.text");
-    //Fi.writeAsString("1234");
+    File re=File("${directory.path}/userName.txt");
+    if(!(await re.exists())){
+      setState(() {
+        re.create();
+        re.writeAsString("admin");
+      });
+
+    }
    await Fi.readAsString(encoding: utf8).then((value){
      if(value==pass) {
        setState(() {
