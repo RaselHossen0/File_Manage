@@ -1,100 +1,102 @@
 import 'dart:io';
 
-import 'package:file_management/login.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+import 'package:file_management/main.dart';
+import 'package:file_management/widget.dart';
+import 'package:file_picker/file_picker.dart';
 
-import 'main.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
+
+import 'homepage.dart';
 
 class UserPage extends StatefulWidget {
-  const UserPage({super.key});
+  // final viewPhoto;
+  // final SavePhoto;
+
+
+  UserPage({super.key});
 
   @override
   State<UserPage> createState() => _UserPageState();
 }
 
 class _UserPageState extends State<UserPage> {
-  // Future<List<String>> _readFile() async{
-  //   File file = File('files/photo.txt');
-  //   String fileContent = await file.readAsString() as String;
-  //   List<String> lines = fileContent.split('\n');
-  //   print(lines);
-  //   return lines;
-  // }
+  // late Future<void> viewPhoto ;
+  // late Future<void> SavePhoto;
+
+  late double wid;
+  late double hi;
+
+  String filePath="";
+  String absPath="";
+  @override
+  void initState() {
+
+    super.initState();
+    // viewPhoto=widget.viewPhoto;
+    // SavePhoto=widget.SavePhoto;
+  }
   @override
   Widget build(BuildContext context) {
-    // _readFile();
+    wid=MediaQuery.of(context).size.width;
+    hi=MediaQuery.of(context).size.height;
+
     return Scaffold(
       body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Center(
-            child: Container(
-
-              margin: EdgeInsets.only(top: 20),
-              height: MediaQuery.of(context).size.height*0.05,
-              width: MediaQuery.of(context).size.width*0.8,
-              color: Colors.deepOrange[100],
-
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  BackButton(onPressed:(){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginPage()));
-                  },),
-                  SizedBox(width: MediaQuery.of(context).size.width*0.35,),
-                  Center(child: Apptext("Browse")),
-                ],
-              ),
-
+          Container(
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage("images/bg.png"),
+                    fit: BoxFit.cover
+                )
             ),
-          ),
-          SizedBox(height: 30,),
-          Center(
-            child: Container(
-              width: MediaQuery.of(context).size.width * 0.8,
-              color: Colors.orange[400]?.withOpacity(0.8),
-              height: MediaQuery.of(context).size.height * 0.8, // Set a specific height or constraints
-              child: GridView.builder(
-                scrollDirection: Axis.vertical,
-                itemCount: containers.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return containers[index];
-                },
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 5,
-                  mainAxisSpacing: 10.0,
-                  crossAxisSpacing: 10.0,
-                  childAspectRatio: 1.0,
+            width: wid,
+            height: hi,
+            child:
+            Column(
+              children:[
+                 SizedBox(height: hi*0.2,),
+                Container(
+                  width: wid*0.8,
+                  height: hi*0.6,
+                  color: Colors.transparent,
+                  child:
+                  GridView.builder(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.vertical,
+                    itemCount: containers.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return SizedBox(
+                          height: 50,
+                          child: containers[index]
+                      );
+                    },
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 6,
+                      mainAxisSpacing: 20.0,
+                      crossAxisSpacing: 20.0,
+                    ),
+                  ),
                 ),
-              ),
-            ),
+                SizedBox(height: 10,),
+                BackButton(
+                  onPressed:() {
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>MyHomePage(title: "Home")));
+                  },
+                ),
+        ]  )
+
           ),
 
-
+          //SizedBox(width: wid*0.1,),
         ],
       ),
     );
   }
-
-
-
-}
-class Apptext extends Text{
-  Apptext(super.data);
-  @override
-  Widget build(BuildContext context) {
-
-    return Text(
-     data!,
-    style: TextStyle(
-      fontSize: 28,
-      // fontWeight: FontWeight.bold,
-      fontFamily: "ArchivoBlack-Regular",
-      color: Colors.black,
-      letterSpacing: 1.2
-    ),);
-  }
+  String path="";
 
 }

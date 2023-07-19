@@ -2,10 +2,12 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:file_management/changePassword.dart';
-import 'package:file_management/main.dart';
+
 import 'package:file_management/user.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
+
+import 'homepage.dart';
 
 
 class LoginPage extends StatefulWidget {
@@ -21,16 +23,36 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      body: Center(
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("images/bg.png"),
+            fit: BoxFit.fill
+          )
+        ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-
+              SizedBox(height: 40,),
             Container(
-                color: Colors.grey[300],
+              decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                border: Border(
+                  bottom: BorderSide(width: 2),
+                    right: BorderSide(width: 2),
+          left: BorderSide(width: 2),
+                    top: BorderSide(width: 2)
+
+                )
+               // color: Colors.orange.withOpacity(30),
+
+              ),
+
                 width: (MediaQuery.of(context).size.width)*0.6,
-              height:(MediaQuery.of(context).size.height)*0.8 ,
+              height:(MediaQuery.of(context).size.height)*0.7 ,
               child: Column(
 
               //  mainAxisAlignment: MainAxisAlignment.center,
@@ -38,9 +60,13 @@ class _LoginPageState extends State<LoginPage> {
                 children: [
                   SizedBox(height: 40,),
                   Center(
-                    child: Apptext(
+                    child: Text(
                       "Are you User?",
-
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold
+                            ,fontSize: 25
+                      ),
                     ),
                   ),
                   TextButton(onPressed: (){
@@ -51,8 +77,8 @@ class _LoginPageState extends State<LoginPage> {
                     TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
-                        color: Colors.orangeAccent,
-                      fontFamily: "Satoshi"
+                        color: Colors.black,
+
                     ),
                   )
                   ),
@@ -61,9 +87,8 @@ class _LoginPageState extends State<LoginPage> {
                       "If you are Admin",
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 30,
+                          fontSize: 25,
                           color: Colors.black,
-                        fontFamily: 'Lexend'
                       ),
                     ),
                   ),
@@ -129,7 +154,7 @@ class _LoginPageState extends State<LoginPage> {
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
-                          
+
                         ),)
                     ),
                   ),

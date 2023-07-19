@@ -86,6 +86,9 @@ flutter:
      - family: ArchivoBlack-Regular
        fonts:
         - asset: fonts/ArchivoBlack-Regular.ttf
+     - family: Ananda
+       fonts:
+         - asset: fonts/ananda-neptouch-2.regular.ttf
 
   #
   # For details regarding fonts from package dependencies,

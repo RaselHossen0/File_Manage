@@ -18,22 +18,42 @@ class _ChangePassState extends State<ChangePass> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("images/bg.png"),
+                fit: BoxFit.fill
+            )
+        ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
 
             Container(
-              color: Colors.grey[300],
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  border: Border(
+                      bottom: BorderSide(width: 2),
+                      right: BorderSide(width: 2),
+                      left: BorderSide(width: 2),
+                      top: BorderSide(width: 2)
+
+                  )
+                // color: Colors.orange.withOpacity(30),
+
+              ),
+             // color: Colors.grey[300],
               width: (MediaQuery.of(context).size.width)*0.6,
-              height:(MediaQuery.of(context).size.height)*0.8 ,
+              height:(MediaQuery.of(context).size.height)*0.67 ,
               child: Column(
 
                 //  mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(height: 40,),
+                  SizedBox(height: 50,),
                   Center(
                     child: Text(
                       "Admin",

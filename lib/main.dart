@@ -1,22 +1,18 @@
 import 'dart:io';
+import 'package:file_management/homepage.dart';
+import 'package:file_management/widget.dart';
 import 'package:path/path.dart' as PATH;
-import 'package:file_management/letter.dart';
-import 'package:file_management/photo.dart';
-import 'package:file_management/login.dart';
-import 'package:file_management/print.dart';
-import 'package:file_management/text.dart';
-import 'package:file_management/video.dart';
-import 'package:file_picker/file_picker.dart';
+
 import 'package:flutter/material.dart';
-import 'package:package_info/package_info.dart';
+
 import 'package:path_provider/path_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'audio.dart';
+
 
 
 List<Container> containers=[];
-Future<void> readFileAndPopulateContainers(String filePath, String nameFilePath, List<String> paths, List<String> names, List<Container> containers, List<Container> specificContainers) async {
+Future<void> readFileAndPopulateContainers(String filePath, String nameFilePath, List<String> paths, List<String> names, List<Container> containers, List<Container> specificContainers,Icon icon) async {
   File file = File(filePath);
   if (!(await File(filePath).exists())) {
     await file.create();
@@ -35,8 +31,8 @@ Future<void> readFileAndPopulateContainers(String filePath, String nameFilePath,
     for (int i = 0; i < names.length; i++) {
       String name = names[i];
       String path = paths[i];
-      containers.add(Divs(name, path));
-      specificContainers.add(Divs(name, path));
+      containers.add(Divs(name, path,icon));
+      specificContainers.add(Divs(name, path,icon));
     }
   }
 }
@@ -84,22 +80,22 @@ String getAbsoluteFilePath(String filename) {
 
    await readFileAndPopulateContainers(
        '${directory.path}/photo.txt', '${directory.path}/photoName.txt',
-       photoPaths, photoNames, containers, PhotoContainers);
+       photoPaths, photoNames, containers, PhotoContainers,Icon(Icons.photo,color: Colors.orange,));
    await readFileAndPopulateContainers(
        '${directory.path}/audio.txt', '${directory.path}/audioName.txt',
-       audioPaths, audioNames, containers, AudioContainers);
+       audioPaths, audioNames, containers, AudioContainers,Icon(Icons.audio_file,color: Colors.orange,));
    await readFileAndPopulateContainers(
        '${directory.path}/video.txt', '${directory.path}/videoName.txt',
-       videoPaths, videoNames, containers, VideoContainers);
+       videoPaths, videoNames, containers, VideoContainers,Icon(Icons.video_file,color: Colors.orange,));
    await readFileAndPopulateContainers(
        '${directory.path}/letter.txt', '${directory.path}/letterName.txt',
-       letterPaths, letterNames, containers, LetterContainers);
+       letterPaths, letterNames, containers, LetterContainers,Icon(Icons.text_format,color: Colors.orange,));
    await readFileAndPopulateContainers(
        '${directory.path}/print.txt', '${directory.path}/printName.txt',
-       printPaths, printNames, containers, PrintContainers);
+       printPaths, printNames, containers, PrintContainers,Icon(Icons.print,color: Colors.orange,));
    await readFileAndPopulateContainers(
        '${directory.path}/text.txt', '${directory.path}/textName.txt',
-       textPaths, textNames, containers, TextContainers);
+       textPaths, textNames, containers, TextContainers,Icon(Icons.text_format,color: Colors.orange,));
 
    //  //photo read
    //  String f1='${directory.path}/photo.txt';
@@ -239,57 +235,6 @@ String getAbsoluteFilePath(String filename) {
    //
    // }
  }
-Container Divs(String fileName,String filePath){
-   return Container(
-       height: 30,
-       padding: EdgeInsets.only(top: 15,bottom: 15),
-
-       decoration: BoxDecoration(
-         color: Colors.white60.withOpacity(0.8),
-         boxShadow: [
-           BoxShadow(
-             // offset: Offset(20,.3),
-             // blurRadius: 10,
-             // spreadRadius: 10,
-               color: Colors.orangeAccent
-           )
-         ],
-       ),
-
-       child:
-       ElevatedButton.icon(
-
-         style: ButtonStyle(
-           elevation: MaterialStateProperty.all(2),
-           backgroundColor: MaterialStateProperty.all(Colors.grey[700]),
-
-         ),
-         onPressed: () async {
-
-           if(await File(filePath).exists()){
-             launchUrl(Uri.file(filePath));
-           }
-           else{
-             print("Not Exitst");
-           }
-
-         },
-
-         icon: Icon(Icons.photo),
-         label: Text(
-           fileName
-           ,style: TextStyle(
-             fontSize: 20,
-             color: Colors.white,
-             fontWeight: FontWeight.w900
-         ),
-         ),
-       )
-
-
-
-   );
-}
 
 
 
@@ -300,139 +245,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+
       debugShowCheckedModeBanner: false,
-      home: LoginPage()
+      home: MyHomePage(title: 'Hr',)
       //const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-   return Scaffold(
-     body: Container(
-       decoration: BoxDecoration(
-         image: DecorationImage(
-           image: AssetImage('images/bg.jpg'),
-           fit: BoxFit.cover,
-         ),
-       ),
-       // width: MediaQuery.of(context).size.width*0.9,
-       // height: MediaQuery.of(context).size.height*0.9,
-      // color: Colors.grey[400],
-       child: Column(
-         crossAxisAlignment: CrossAxisAlignment.center,
-         mainAxisAlignment: MainAxisAlignment.center,
-         children: [
-           SizedBox(height: 30,),
-           Center(
-
-             child: const Text(
-               "Vivekananda Digital Archives, RKMVERI"
-             ,style:  TextStyle(
-                 fontWeight: FontWeight.bold,
-                 fontSize: 35,
-                 color: Colors.teal
-               ),
-             ),
-           ),
-           Center(
-
-             child: const Text(
-               "Glimpses of the Holy Treasure through"
-               ,style:  TextStyle(
-                 fontWeight: FontWeight.bold,
-                 fontSize: 30,
-                 color: Colors.black87
-             ),
-             ),
-           ),
-           SizedBox(height: 30,),
-           Row(
-             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-             children: [
-               buttons("Timeline Photos", Photos()),
-               buttons("Audio talks", Audios()),
-    ]
-           ),
-           Row(
-               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-               children: [
-                 buttons("Archival print media", Prints()),
-                 buttons("Video lectures", Videos()),
-               ]
-           ),
-           Row(
-               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-               children: [
-                 buttons("Rare write-ups", Texts()),
-                 buttons("Yesteryear Letters", Letters()),
-               ]
-           ),
-           BackButton(onPressed: (){
-
-             Navigator.push(context,
-             MaterialPageRoute(builder: (context)=>LoginPage()));
-           },
-           style:ButtonStyle(
-             backgroundColor:MaterialStateProperty.resolveWith<Color?>(
-                   (Set<MaterialState> states) {
-                 if (states.contains(MaterialState.pressed)) {
-                   return Colors.blue.withOpacity(0.8);
-                 } else if (states.contains(MaterialState.hovered)) {
-                   return Colors.blue.withOpacity(0.5);
-                 } else {
-                   return Colors.blue;
-                 }
-               },
-           ) ,
-           ),
-           )
-         ]
-       ),
-     ),
-
-   );
-  }
-
-  Container buttons (String name,Widget page){
-    return Container(
-      margin: EdgeInsets.only(left: 20,right: 20,top: 20,bottom: 20),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
-          //border: Border.all(width: 0.3),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey,
-              spreadRadius: .2,
-            )
-          ]
-      ),
-      child: TextButton(
-        onPressed: () {
-          Navigator.push(context, MaterialPageRoute (
-            builder: (BuildContext context) => page,)
-          );
-        },
-        child: Text(
-          name,
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 20,
-          ),),
-      ),
-    );
-  }
- 
 }
